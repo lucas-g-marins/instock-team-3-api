@@ -11,6 +11,8 @@ const warehouseRoutes = require("./routes/warehouses");
 
 app.use("/warehouses", warehouseRoutes);
 
+app.use("warehouses/id", warehouseRoutes);
+
 app.get("/", (req, res) => {
   res.send("It's the API");
 });
