@@ -13,7 +13,7 @@ const index = (_req, res) => {
 const singleWarehouse = (req, res) => {
   knex
     .from("warehouses")
-    .where({ id: 1 })
+    .where({ id: req.params.id })
     .then((data) => {
       res.status(200).json(data);
     })
