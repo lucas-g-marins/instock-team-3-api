@@ -21,6 +21,20 @@ const singleWarehouse = (req, res) => {
       res.status(400).send(`Error retrieving individual warehouse: ${err}`)
     );
 };
+const editWarehouse = (req, res) => {
+  console.log("body", req.body);
+  knex("warehouses")
+    .where({ id: req.params.id })
+    .update({ ...req.body })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ message: `Unable to edit user infromation: ${err}` });
+    });
+};
 
 const addWarehouse = (req, res) => {
   if (!req.body.email || req.body.email) {
@@ -43,5 +57,6 @@ const addWarehouse = (req, res) => {
 module.exports = {
   index,
   singleWarehouse,
+  editWarehouse,
   addWarehouse,
 };
