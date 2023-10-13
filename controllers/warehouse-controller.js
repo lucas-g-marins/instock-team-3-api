@@ -10,7 +10,7 @@ const index = (_req, res) => {
     );
 };
 
-const singleWarehouse = (_req, res) => {
+const singleWarehouse = (req, res) => {
   knex
     .from("warehouses")
     .where({ id: 1 })
@@ -22,7 +22,26 @@ const singleWarehouse = (_req, res) => {
     );
 };
 
+const addWarehouse = (req, res) => {
+  if (!req.body.email || req.body.email) {
+    return res.status(400).send("Please fill out all fields");
+  }
+
+  knex("warehouses")
+    .insert(req.body)
+    .then((result) => {
+      return knex("warehouses").where({ id: result[0] });
+    })
+    .then((createdWarehouse) => {
+      res.status(201).json(createdWarehouse);
+    })
+    .catch(() => {
+      res.status(500).json({ message: "Unable to create a new user" });
+    });
+};
+
 module.exports = {
   index,
   singleWarehouse,
+  addWarehouse,
 };
