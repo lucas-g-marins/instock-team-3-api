@@ -21,6 +21,24 @@ const singleWarehouse = (req, res) => {
       res.status(400).send(`Error retrieving individual warehouse: ${err}`)
     );
 };
+
+const deleteWarehouse = (req, res) => {
+  const warehouseId = req.params.id;
+  // Delete associated inventory items
+  knex("inventories")
+    .where({ warehouse_id: warehouseId })
+    .del()
+    .then(() => knex("warehouses").where({ id: warehouseId }).del()) // Delete the warehouse
+    .then((result) => {
+      if (result === 0) {
+        res.status(404).json(`Warehouse not found: ${err}`);
+      } else {
+        res.status(204).end();
+      }
+    })
+    .catch((err) => res.status(500).json(`Error deleting warehouse: ${err}`));
+};
+
 const editWarehouse = (req, res) => {
   console.log("body", req.body);
   knex("warehouses")
@@ -59,4 +77,5 @@ module.exports = {
   singleWarehouse,
   editWarehouse,
   addWarehouse,
+  deleteWarehouse,
 };

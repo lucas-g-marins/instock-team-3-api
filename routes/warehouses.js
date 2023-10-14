@@ -9,4 +9,6 @@ router.route("/:id").put(warehouseController.editWarehouse);
 
 router.route("/").post(warehouseController.addWarehouse);
 
+router.route("/:id").delete(warehouseController.deleteWarehouse);
+
 module.exports = router;
