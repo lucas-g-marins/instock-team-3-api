@@ -23,7 +23,7 @@ const singleWarehouse = (req, res) => {
 };
 
 const addWarehouse = (req, res) => {
-  if (!req.body.email || req.body.email) {
+  if (!req.body.contact_email || !req.body.contact_phone) {
     return res.status(400).send("Please fill out all fields");
   }
 
