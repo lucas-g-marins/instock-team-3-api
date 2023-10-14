@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const knex = require("knex");
 const newWarehouseRoutes = require("./routes/NewWareHouse"); // Import to newwarehouse file
 
+
 app.use(express.json());
 
 app.use(bodyParser.json());
@@ -20,8 +21,6 @@ const warehouseRoutes = require("./routes/warehouses");
 app.use("/api", newWarehouseRoutes);
 
 app.use("/warehouses", warehouseRoutes);
-
-app.use("warehouses/id", warehouseRoutes);
 
 app.get("/", (req, res) => {
   res.send("It's the API");
