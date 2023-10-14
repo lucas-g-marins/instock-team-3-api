@@ -1,28 +1,33 @@
 const express = require("express");
 const app = express();
+
+// cors
+const cors = require("cors");
+app.use(cors());
 const bodyParser = require("body-parser");
 const knex = require("knex");
-const warehouseRoutes = require("./routes/NewWareHouse"); // Import to newwarehouse file
+const newWarehouseRoutes = require("./routes/NewWareHouse"); // Import to newwarehouse file
+
+
+app.use(express.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Database connection using knex
-const db = knex({
-  client: "mysql",
-  connection: {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-  },
-});
+
+const PORT = process.env.PORT || 5050;
+
+const warehouseRoutes = require("./routes/warehouses");
 
 // Use the NewWarehouse route
-app.use("/api", warehouseRoutes);
+app.use("/api", newWarehouseRoutes);
 
-// Start your Express server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.use("/warehouses", warehouseRoutes);
+
+app.get("/", (req, res) => {
+  res.send("It's the API");
+});
+
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
 });
