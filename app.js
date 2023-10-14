@@ -40,6 +40,22 @@ inventoryRouter.get("/:id", async (req, res) => {
   }
 });
 
+// Define a route for creating a new inventory item
+inventoryRouter.post("/", async (req, res) => {
+  const newItem = req.body; // The new item details are sent in the request body
+
+  try {
+    // Use Knex to insert the new item into the "inventory" table
+    const [insertedId] = await knex("inventory").insert(newItem);
+    res.status(201).json({
+      id: insertedId,
+      ...newItem,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // Use the inventory router for routes starting with "/api/inventories"
 app.use("/api/inventories", inventoryRouter);
 
