@@ -7,6 +7,9 @@ const bodyParser = require("body-parser");
 const knex = require("knex");
 const newWarehouseRoutes = require("./routes/NewWareHouse"); // Import to newwarehouse file
 
+
+app.use(express.json());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
