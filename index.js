@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 // cors
 const cors = require("cors");
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 const PORT = process.env.PORT || 5050;
 
