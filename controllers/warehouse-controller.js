@@ -50,7 +50,7 @@ const editWarehouse = (req, res) => {
     .catch((err) => {
       res
         .status(500)
-        .json({ message: `Unable to edit user infromation: ${err}` });
+        .json({ message: `Unable to edit warehouse infromation: ${err}` });
     });
 };
 

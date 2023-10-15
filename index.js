@@ -8,29 +8,23 @@ const bodyParser = require("body-parser");
 const knex = require("knex");
 const newWarehouseRoutes = require("./routes/NewWareHouse"); // Import to newwarehouse file
 
-
 app.use(express.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 const PORT = process.env.PORT || 5050;
 
 const warehouseRoutes = require("./routes/warehouses");
-
 
 const inventoriesRoutes = require("./routes/inventories");
 
 // Use the NewWarehouse route
 app.use("/api", newWarehouseRoutes);
 
-
 app.use("/warehouses", warehouseRoutes);
 
 app.use("/inventories", inventoriesRoutes);
-
-app.use("inventories/id", inventoriesRoutes);
 
 app.get("/", (req, res) => {
   res.send("It's the API");
